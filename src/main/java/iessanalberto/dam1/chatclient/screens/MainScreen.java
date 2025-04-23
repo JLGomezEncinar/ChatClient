@@ -1,6 +1,5 @@
 package iessanalberto.dam1.chatclient.screens;
 
-import iessanalberto.dam1.chatclient.network.ChatListener;
 import iessanalberto.dam1.chatclient.network.Client;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
@@ -11,7 +10,7 @@ import javafx.scene.layout.VBox;
 
 
 
-public class MainScreen implements ChatListener {
+public class MainScreen {
     private VBox root = new VBox();
     private TextArea txtChat = new TextArea();
     private TextField txtMensaje = new TextField();
@@ -34,7 +33,7 @@ public class MainScreen implements ChatListener {
             enviarMensaje();
         });
         try {
-            client = new Client("54.166.57.115",12345);
+            client = new Client("18.213.122.78",12345);
             client.connect();
         } catch (Exception e) {
             txtChat.appendText("Error conectando al servidor: " + e.getMessage() + "\n");
