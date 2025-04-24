@@ -24,7 +24,8 @@ public class MainScreen {
     }
 
 
-    public MainScreen() {
+    public MainScreen(Client client) {
+
             this.nick = pedirNick();
         txtChat.setEditable(false);
         txtMensaje.setPromptText("Escribe tu mensaje");
@@ -33,7 +34,8 @@ public class MainScreen {
             enviarMensaje();
         });
         try {
-            client = new Client("18.213.122.78",12345);
+            this.client = client;
+            client.setMainScreen(this);
             client.connect();
         } catch (Exception e) {
             txtChat.appendText("Error conectando al servidor: " + e.getMessage() + "\n");

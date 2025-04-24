@@ -1,6 +1,7 @@
 package iessanalberto.dam1.chatclient.network;
 
 import iessanalberto.dam1.chatclient.screens.MainScreen;
+import javafx.application.Platform;
 
 import java.io.*;
 import java.net.Socket;
@@ -25,10 +26,12 @@ public class Client {
                 socket = new Socket(servidor, puerto);
                 bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 printWriter = new PrintWriter(socket.getOutputStream(),true);
-                String linea;
-                while ((linea = bufferedReader.readLine()) != null){
+                String linea = null;
 
-                    mainScreen.onMessageReceiver(linea);
+                while ((linea = bufferedReader.readLine()) != null){
+                    String finalLinea = linea;
+                    Platform.runLater(()->mainScreen.onMessageReceiver(finalLinea));
+
 
                 }
             } catch (IOException e) {
@@ -41,5 +44,9 @@ public class Client {
         if (printWriter != null) {
             printWriter.println(mensaje);
         }
+    }
+
+    public void setMainScreen(MainScreen mainScreen) {
+        this.mainScreen = mainScreen;
     }
 }
